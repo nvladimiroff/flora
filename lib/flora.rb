@@ -1,6 +1,7 @@
 require 'zeitwerk'
 
-Zeitwerk::Loader.for_gem
+loader = Zeitwerk::Loader.for_gem
+loader.setup
 
 module Flora
 end

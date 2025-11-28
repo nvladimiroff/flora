@@ -3,11 +3,9 @@
 require "test_helper"
 
 class TestFlora < Minitest::Test
-  def test_that_it_has_a_version_number
-    refute_nil ::Flora::VERSION
-  end
 
   def test_it_does_something_useful
-    assert false
+    Flora.build('fixtures/test_blog')
   end
+
 end
