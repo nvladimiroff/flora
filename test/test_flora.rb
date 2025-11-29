@@ -38,4 +38,11 @@ class TestFlora < Minitest::Test
     assert_css('body div', 'Hello world from a lib folder')
   end
 
+
+  def test_layout
+    build('site_with_a_layout')
+
+    assert_css('body div', 'Hello world from a layout')
+  end
+
 end

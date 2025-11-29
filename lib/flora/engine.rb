@@ -8,14 +8,21 @@ class Flora::Engine
     @out_dir = Pathname.new(out_dir)
     @out_dir.mkdir unless @out_dir.exist?
 
-    Kernel.include(Flora::Engine::Page::Html)
+    Kernel.prepend(Flora::Engine::Page::Html)
   end
 
 
   def build
     with_load_path(@path) do
       Page.each(@path) do |page|
-        @out_dir.join(page.outname).write(page.render)
+        layouts = []
+        page.dir.ascend do |dir|
+          maybe_layout = dir.join('_layout.rb')
+          layouts << maybe_layout if maybe_layout.exist?
+          break if dir == @path
+        end
+        html = page.render(Page::Layout.new(layouts))
+        @out_dir.join(page.outname).write(html)
       end
     end
   end

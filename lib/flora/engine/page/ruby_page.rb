@@ -5,9 +5,11 @@ class Flora::Engine::Page::RubyPage < Flora::Engine::Page
   end
 
 
-  def render
+  def render(layout)
     $flora_added = []
-    body = eval(@file.read)
+    body = layout.render do
+      eval(@file.read)
+    end
 
     page = Nokogiri::HTML5::Document.new
     root = to_html(body, page)

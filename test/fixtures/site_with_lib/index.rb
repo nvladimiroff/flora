@@ -3,6 +3,6 @@ require 'lib/title'
 html do
   head
   body do
-    Title.render
+    Title.new.render
   end
 end

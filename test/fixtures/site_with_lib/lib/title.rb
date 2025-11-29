@@ -1,6 +1,6 @@
 class Title
 
-  def self.render
+  def render
     div do
       'Hello world from a lib folder'
     end

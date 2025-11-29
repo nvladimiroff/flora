@@ -19,7 +19,7 @@ class Minitest::Test
 
   def css(selector, file: nil)
     file ||= 'index.html'
-    doc = Nokogiri::HTML5(File.read(@flora.out_dir.join(file)))
+    doc = Nokogiri::HTML5(@flora.out_dir.join(file).read)
     doc.css(selector)[0]
   end
 
