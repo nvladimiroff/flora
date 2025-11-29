@@ -30,6 +30,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'zeitwerk'
   spec.add_dependency 'thor'
   spec.add_dependency 'nokogiri'
+  spec.add_dependency 'kramdown'
   spec.add_development_dependency 'rack'
   spec.add_development_dependency 'puma'
 

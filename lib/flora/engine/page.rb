@@ -17,6 +17,8 @@ class Flora::Engine::Page
     case path.extname
     when '.rb'
       RubyPage.new(path)
+    when '.md'
+      MarkdownPage.new(path)
     end
   end
 
@@ -29,7 +31,7 @@ class Flora::Engine::Page
 
   def outname
     # TODO: this might sub something in the middle instead of just the ext.
-    @file.basename.sub('.rb', '.html')
+    @file.basename.sub(@file.extname, '.html')
   end
 
 end

@@ -24,4 +24,11 @@ class TestFlora < Minitest::Test
     assert_equal('/about', css('body a')['href'])
   end
 
+
+  def test_markdown
+    build('markdown_website')
+
+    assert_css('p strong', 'Hello world', 'post-1.html')
+  end
+
 end
