@@ -14,7 +14,7 @@ class Flora::Engine::Page::RubyPage < Flora::Engine::Page
     def to_html(doc, html)
       return html.text(doc[:text]) if doc[:text]
 
-      html.send(doc[:tag]) do
+      html.send(doc[:tag], **doc[:opts]) do
         doc[:children].each do |child|
           to_html(child, html)
         end

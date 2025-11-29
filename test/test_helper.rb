@@ -2,6 +2,7 @@ $LOAD_PATH.unshift File.expand_path("../lib", __dir__)
 
 require 'flora'
 require 'minitest/autorun'
+require 'debug'
 
 class Minitest::Test
 
@@ -16,12 +17,15 @@ class Minitest::Test
   end
 
 
-  def assert_css(selector, expected, file = nil)
+  def css(selector, file = nil)
     file ||= 'index.html'
     doc = Nokogiri::HTML5(File.read(@flora.out_dir.join(file)))
-    result = doc.css(selector)
+    doc.css(selector)[0]
+  end
 
-    assert_equal(expected, result.text)
+
+  def assert_css(selector, expected, file = nil)
+    assert_equal(expected, css(selector, file).text)
   end
 
 end

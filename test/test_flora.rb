@@ -17,4 +17,11 @@ class TestFlora < Minitest::Test
     assert_css('body', 'About!', 'about.html')
   end
 
+
+  def test_links
+    build('two_page_website')
+
+    assert_equal('/about', css('body a')['href'])
+  end
+
 end

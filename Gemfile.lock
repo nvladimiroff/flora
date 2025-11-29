@@ -10,6 +10,9 @@ GEM
   remote: https://rubygems.org/
   specs:
     date (3.5.0)
+    debug (1.11.0)
+      irb (~> 1.10)
+      reline (>= 0.3.8)
     erb (6.0.0)
     io-console (0.8.1)
     irb (1.15.3)
@@ -49,6 +52,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  debug
   flora!
   irb
   minitest (~> 5.16)
@@ -58,6 +62,7 @@ DEPENDENCIES
 
 CHECKSUMS
   date (3.5.0) sha256=5e74fd6c04b0e65d97ad4f3bb5cb2d8efb37f386cc848f46310b4593ffc46ee5
+  debug (1.11.0) sha256=1425db64cfa0130c952684e3dc974985be201dd62899bf4bbe3f8b5d6cf1aef2
   erb (6.0.0) sha256=2730893f9d8c9733f16cab315a4e4b71c1afa9cabc1a1e7ad1403feba8f52579
   flora (0.1.0)
   io-console (0.8.1) sha256=1e15440a6b2f67b6ea496df7c474ed62c860ad11237f29b3bd187f054b925fcb
