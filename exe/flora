@@ -1,1 +1,4 @@
-require_relative '../flora'
+#!/usr/bin/env ruby
+require 'flora'
+
+Flora::Cli.start

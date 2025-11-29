@@ -6,6 +6,7 @@ class Flora::Engine
   def initialize(path, out_dir)
     @path = Pathname.new(path)
     @out_dir = Pathname.new(out_dir)
+    @out_dir.mkdir unless @out_dir.exist?
   end
 
 
