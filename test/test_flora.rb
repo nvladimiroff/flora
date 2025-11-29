@@ -4,8 +4,10 @@ require "test_helper"
 
 class TestFlora < Minitest::Test
 
-  def test_it_does_something_useful
-    Flora.build('fixtures/test_blog')
+  def test_single_path_website
+    build('single_page_website')
+
+    assert_css('body', 'Hello world')
   end
 
 end

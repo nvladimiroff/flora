@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     flora (0.1.0)
+      nokogiri
       thor
       zeitwerk
 
@@ -15,13 +16,18 @@ GEM
       pp (>= 0.6.0)
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
+    mini_portile2 (2.8.9)
     minitest (5.26.2)
+    nokogiri (1.18.10)
+      mini_portile2 (~> 2.8.2)
+      racc (~> 1.4)
     pp (0.6.3)
       prettyprint
     prettyprint (0.2.0)
     psych (5.2.6)
       date
       stringio
+    racc (1.8.1)
     rake (13.3.1)
     rdoc (6.16.1)
       erb
@@ -50,10 +56,13 @@ CHECKSUMS
   flora (0.1.0)
   io-console (0.8.1) sha256=1e15440a6b2f67b6ea496df7c474ed62c860ad11237f29b3bd187f054b925fcb
   irb (1.15.3) sha256=4349edff1efa7ff7bfd34cb9df74a133a588ba88c2718098b3b4468b81184aaa
+  mini_portile2 (2.8.9) sha256=0cd7c7f824e010c072e33f68bc02d85a00aeb6fce05bb4819c03dfd3c140c289
   minitest (5.26.2) sha256=f021118a6185b9ba9f5af71f2ba103ad770c75afde9f2ab8da512677c550cde3
+  nokogiri (1.18.10) sha256=d5cc0731008aa3b3a87b361203ea3d19b2069628cb55e46ac7d84a0445e69cc1
   pp (0.6.3) sha256=2951d514450b93ccfeb1df7d021cae0da16e0a7f95ee1e2273719669d0ab9df6
   prettyprint (0.2.0) sha256=2bc9e15581a94742064a3cc8b0fb9d45aae3d03a1baa6ef80922627a0766f193
   psych (5.2.6) sha256=814328aa5dcb6d604d32126a20bc1cbcf05521a5b49dbb1a8b30a07e580f316e
+  racc (1.8.1) sha256=4a7f6929691dbec8b5209a0b373bc2614882b55fc5d2e447a21aaa691303d62f
   rake (13.3.1) sha256=8c9e89d09f66a26a01264e7e3480ec0607f0c497a861ef16063604b1b08eb19c
   rdoc (6.16.1) sha256=71357cc208e6da77ba0c4494e01ae870dd18b437c7c7d801dd73ee2f340b9f5c
   reline (0.6.3) sha256=1198b04973565b36ec0f11542ab3f5cfeeec34823f4e54cebde90968092b1835
