@@ -14,7 +14,7 @@ class TestFlora < Minitest::Test
   def test_two_page_website
     build('two_page_website')
 
-    assert_css('body', 'About!', 'about.html')
+    assert_css('body', 'About!', file: 'about.html')
   end
 
 
@@ -28,7 +28,14 @@ class TestFlora < Minitest::Test
   def test_markdown
     build('markdown_website')
 
-    assert_css('p strong', 'Hello world', 'post-1.html')
+    assert_css('p strong', 'Hello world', file: 'post-1.html')
+  end
+
+
+  def test_lib_dir
+    build('site_with_lib')
+
+    assert_css('body div', 'Hello world from a lib folder')
   end
 
 end

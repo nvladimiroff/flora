@@ -17,15 +17,15 @@ class Minitest::Test
   end
 
 
-  def css(selector, file = nil)
+  def css(selector, file: nil)
     file ||= 'index.html'
     doc = Nokogiri::HTML5(File.read(@flora.out_dir.join(file)))
     doc.css(selector)[0]
   end
 
 
-  def assert_css(selector, expected, file = nil)
-    assert_equal(expected, css(selector, file).text)
+  def assert_css(selector, expected, file: nil)
+    assert_equal(expected, css(selector, file:).text)
   end
 
 end

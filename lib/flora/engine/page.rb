@@ -4,12 +4,12 @@ class Flora::Engine::Page
 
 
   def self.each(path)
-      path.find do |file|
-        next if IGNORES.any? { file.fnmatch((path / it).to_s) }
-        next if file.directory?
+    path.find do |file|
+      next if IGNORES.any? { file.fnmatch((path / it).to_s) }
+      next if file.directory?
 
-        yield(self.for(file))
-      end
+      yield(self.for(file))
+    end
   end
 
 
@@ -25,7 +25,6 @@ class Flora::Engine::Page
 
   def initialize(file)
     @file = file
-    @dsl = Html.new
   end
 
 

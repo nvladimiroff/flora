@@ -1,24 +1,36 @@
 class Flora::Engine::Page::RubyPage < Flora::Engine::Page
 
+  def initialize(file)
+    super(file)
+  end
+
+
   def render
-    body = @dsl.instance_eval(@file.read)
-    builder = Nokogiri::HTML5::Builder.new do |html|
-      to_html(body, html)
-    end
-    builder.to_html
+    $flora_added = []
+    body = eval(@file.read)
+
+    page = Nokogiri::HTML5::Document.new
+    root = to_html(body, page)
+    page.add_child(root)
+    page.to_html
   end
 
 
   private
 
-    def to_html(doc, html)
-      return html.text(doc[:text]) if doc[:text]
-
-      html.send(doc[:tag], **doc[:opts]) do
-        doc[:children].each do |child|
-          to_html(child, html)
-        end
+    def to_html(tree, document)
+      if tree[:text]
+        return document.create_text_node(tree[:text])
       end
+
+      node = document.create_element(tree[:tag].to_s, **tree[:opts])
+
+      tree[:children].each do |child|
+        child_node = to_html(child, document)
+        node.add_child(child_node)
+      end
+
+      node
     end
 
 end
