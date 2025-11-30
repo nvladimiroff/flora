@@ -2,7 +2,6 @@ class Flora::Engine::Page::MarkdownPage < Flora::Engine::Page
 
   def render(layout)
     # TODO: layouts with markdown.
-
     silence_warnings do
       Kramdown::Document.new(@file.read).to_html
     end

@@ -1,0 +1,4 @@
+main do
+  yield
+end
+

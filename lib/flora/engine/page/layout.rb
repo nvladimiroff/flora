@@ -6,18 +6,24 @@ class Flora::Engine::Page::Layout
 
 
   def render(&block)
-    render_internal(0, &block)
+    render_internal(@layouts.size - 1, &block)
   end
 
 
   private
 
     def render_internal(i, &block)
-      if i == @layouts.size
+      if i <= 0
         return block.call
       end
 
-      eval(@layouts[i].read)
+      cont = -> { render_internal(i-1, &block) }
+      eval_with_block(@layouts[i].read, &cont)
+    end
+
+
+    def eval_with_block(str, &block)
+      eval(str)
     end
 
 end

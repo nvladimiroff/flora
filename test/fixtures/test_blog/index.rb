@@ -1,4 +1,4 @@
-require_relative 'lib/post'
+require 'lib/post'
 
 ul do
   @posts.each do |post|

@@ -22,7 +22,9 @@ class Flora::Engine
           break if dir == @path
         end
         html = page.render(Page::Layout.new(layouts))
-        @out_dir.join(page.outname).write(html)
+        out_filename = @out_dir.join(page.outname(@path))
+        out_filename.dirname.mkdir unless out_filename.dirname.exist?
+        out_filename.write(html)
       end
     end
   end

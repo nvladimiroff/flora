@@ -1,7 +1,7 @@
 # A page is something can be turned into HTML. It might also have a layout to render into.
 class Flora::Engine::Page
 
-  IGNORES = ['.git/*', 'lib/*', '_layout.rb']
+  IGNORES = ['.git/*', 'lib/*', '**_layout.rb']
 
 
   class << self
@@ -33,9 +33,9 @@ class Flora::Engine::Page
   end
 
 
-  def outname
+  def outname(root)
     # TODO: this might sub something in the middle instead of just the ext.
-    @file.basename.sub(@file.extname, '.html')
+    @file.relative_path_from(root).sub(@file.extname, '.html')
   end
 
 
