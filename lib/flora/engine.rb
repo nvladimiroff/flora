@@ -7,6 +7,7 @@ class Flora::Engine
     @path = Pathname.new(path)
     @out_dir = Pathname.new(out_dir)
     @out_dir.mkdir unless @out_dir.exist?
+    @config = Config.new
 
     Kernel.prepend(Flora::Engine::Page::Html)
   end
@@ -14,6 +15,11 @@ class Flora::Engine
 
   def build
     with_load_path(@path) do
+      config_file = @path.join('_config.rb')
+      @config.instance_eval(config_file.read)  if config_file.exist?
+
+      init_plugins
+
       Page.each(@path) do |page|
         layouts = []
         page.dir.ascend do |dir|
@@ -21,7 +27,9 @@ class Flora::Engine
           layouts << maybe_layout if maybe_layout.exist?
           break if dir == @path
         end
+        page.before_render
         html = page.render(Page::Layout.new(layouts))
+        page.after_render(html)
         out_filename = @out_dir.join(page.outname(@path))
         out_filename.dirname.mkdir unless out_filename.dirname.exist?
         out_filename.write(html)
@@ -36,6 +44,13 @@ class Flora::Engine
       $LOAD_PATH << path.to_s
       yield
       $LOAD_PATH.delete(path.to_s)
+    end
+
+
+    def init_plugins
+      @config.plugins.each do |plugin|
+        Page.include(plugin::Page)
+      end
     end
 
 end

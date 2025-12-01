@@ -7,7 +7,7 @@ require 'debug'
 class Minitest::Test
 
   def teardown
-    `rm tmp/test/*`
+    `rm -rf tmp/test/*`
   end
 
 

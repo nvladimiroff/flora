@@ -1,8 +1,13 @@
-module Post
+class Post
 
-  def self.render(post)
-    a href: post.url do
-      post.title
+  def initialize(post)
+    @post = post
+  end
+
+
+  def render
+    a href: @post.url do
+      @post.title
     end
   end
 

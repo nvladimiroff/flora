@@ -53,5 +53,10 @@ class TestFlora < Minitest::Test
   end
 
 
+  def test_plugins
+    build('site_with_a_plugin')
+
+    assert_css('body', 'Hello plugin')
+  end
 
 end

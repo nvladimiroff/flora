@@ -1,7 +1,9 @@
 # A page is something can be turned into HTML. It might also have a layout to render into.
 class Flora::Engine::Page
 
-  IGNORES = ['.git/*', 'lib/*', '**_layout.rb']
+  IGNORES = ['.git/*', 'lib/*', '**_layout.rb', '_config.rb']
+
+  include PluginHooks
 
 
   class << self
