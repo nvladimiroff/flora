@@ -1,3 +1,7 @@
-<% @metadata[:title] = 'Post 1' %>
+---
+title: First post title!
+---
+
+# First post title!
 
 Hello world!

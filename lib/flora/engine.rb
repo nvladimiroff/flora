@@ -27,10 +27,14 @@ class Flora::Engine
           layouts << maybe_layout if maybe_layout.exist?
           break if dir == @path
         end
-        page.before_render
-        html = page.render(Page::Layout.new(layouts))
-        page.after_render(html)
-        out_filename = @out_dir.join(page.outname(@path))
+
+        $flora_added = []
+        tree = Page::Layout.new(layouts).render do
+          page.render
+        end
+        html = Page::Html.to_html(tree)
+
+        out_filename = @out_dir.join(page.outname)
         out_filename.dirname.mkdir unless out_filename.dirname.exist?
         out_filename.write(html)
       end
@@ -49,7 +53,8 @@ class Flora::Engine
 
     def init_plugins
       @config.plugins.each do |plugin|
-        Page.include(plugin::Page)
+        Page.include(plugin::Page) if self.class.const_defined?("#{plugin}::Page")
+        Page::RubyPage.include(plugin::RubyPage) if self.class.const_defined?("#{plugin}::RubyPage")
       end
     end
 

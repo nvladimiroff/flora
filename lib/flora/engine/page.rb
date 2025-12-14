@@ -3,8 +3,6 @@ class Flora::Engine::Page
 
   IGNORES = ['.git/*', 'lib/*', '**_layout.rb', '_config.rb']
 
-  include PluginHooks
-
 
   class << self
 
@@ -13,31 +11,41 @@ class Flora::Engine::Page
         next if IGNORES.any? { file.fnmatch((path / it).to_s) }
         next if file.directory?
 
-        yield(self.for(file))
+        yield(self.for(path, file))
       end
     end
 
 
-    def for(path)
-      case path.extname
+    def for(root, file)
+      case file.extname
       when '.rb'
-        RubyPage.new(path)
+        RubyPage.new(root, file)
       when '.md'
-        MarkdownPage.new(path)
+        MarkdownPage.new(root, file)
       end
     end
 
   end
 
 
-  def initialize(file)
+  def initialize(root, file)
+    @root = root
     @file = file
   end
 
 
-  def outname(root)
+  def render
+  end
+
+
+  def outname
     # TODO: this might sub something in the middle instead of just the ext.
-    @file.relative_path_from(root).sub(@file.extname, '.html')
+    @file.relative_path_from(@root).sub(@file.extname, '.html')
+  end
+
+
+  def url
+    @file.relative_path_from(@root).sub(@file.extname, '')
   end
 
 

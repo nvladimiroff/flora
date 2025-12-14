@@ -24,6 +24,40 @@ module Flora::Engine::Page::Html
   ]
 
 
+  class << self
+
+    def to_html(tree)
+      document = Nokogiri::HTML5::Document.new
+      root = to_html_inner(tree, document)
+      document.add_child(root)
+      document.to_html
+    end
+
+
+    private
+
+      def to_html_inner(tree, document)
+        if tree[:text]
+          return document.create_text_node(tree[:text])
+        end
+
+        if tree[:html]
+          return document.fragment("<div>#{tree[:html]}</div>")
+        end
+
+        node = document.create_element(tree[:tag].to_s, **tree[:opts])
+
+        tree[:children].each do |child|
+          child_node = to_html_inner(child, document)
+          node.add_child(child_node)
+        end
+
+        node
+      end
+
+  end
+
+
   TAGS.each do |tag|
     define_method(tag) do |*args, **opts, &block|
       children = []
@@ -44,6 +78,13 @@ module Flora::Engine::Page::Html
       $flora_added << node
       node
     end
+  end
+
+
+  def raw_html(string)
+    node = { tag: 'raw', opts: {}, html: string, children: [] }
+    $flora_added << node
+    node
   end
 
 end

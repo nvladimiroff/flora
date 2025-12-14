@@ -1,4 +1,8 @@
-<% @metadata[:title] = 'Post 2' %>
+---
+title: Second post title!
+---
+
+# Second post title!
 
 This is a second post!
 

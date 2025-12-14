@@ -1,9 +1,10 @@
 module TestPlugin
 
-  module Page
+  module RubyPage
 
-    def before_render
+    def render
       @plugin_data = 'Hello plugin'
+      super
     end
 
   end
