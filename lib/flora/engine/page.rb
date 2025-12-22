@@ -10,6 +10,7 @@ class Flora::Engine::Page
       path.find do |file|
         next if IGNORES.any? { file.fnmatch((path / it).to_s) }
         next if file.directory?
+        next unless supported_file_type?(file)
 
         yield(self.for(path, file))
       end
@@ -24,6 +25,13 @@ class Flora::Engine::Page
         MarkdownPage.new(root, file)
       end
     end
+
+
+    private
+
+      def supported_file_type?(file)
+        file.extname == '.rb' || file.extname == '.md'
+      end
 
   end
 
