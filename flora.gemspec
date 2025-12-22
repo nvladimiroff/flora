@@ -31,8 +31,8 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'thor'
   spec.add_dependency 'nokogiri'
   spec.add_dependency 'kramdown'
-  spec.add_development_dependency 'rack'
-  spec.add_development_dependency 'puma'
+  spec.add_dependency 'rack'
+  spec.add_dependency 'puma'
 
   # For more information and examples about making a new gem, check out our
   # guide at: https://bundler.io/guides/creating_gem.html
