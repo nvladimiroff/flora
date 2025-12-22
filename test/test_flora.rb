@@ -59,4 +59,11 @@ class TestFlora < Minitest::Test
     assert_css('body', 'Hello plugin')
   end
 
+
+  def test_blog
+    build('test_blog')
+
+    assert_css('body', 'First post title!')
+  end
+
 end

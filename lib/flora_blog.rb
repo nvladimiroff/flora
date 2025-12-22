@@ -1,12 +1,11 @@
 module FloraBlog
 
-  module Page
+  module RubyPage
 
-    def before_render
+    def render
+      @posts = @root.glob('posts/**').map { Post.new(it) }
+
       super
-
-      return unless @path.fnmatch('index.rb')
-      @posts =
     end
 
   end

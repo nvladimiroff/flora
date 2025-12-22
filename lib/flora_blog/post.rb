@@ -1,13 +1,18 @@
 class FloraBlog::Post
 
-  def initialize(page, frontmatter)
+  def initialize(page)
     @page = page
-    @frontmatter = @frontmatter
+    @frontmatter = parse_frontmatter
   end
 
 
   def url
-    @page.url
+    'https://google.com'
+  end
+
+
+  def title
+    'google'
   end
 
 
@@ -16,5 +21,17 @@ class FloraBlog::Post
 
     super(name, ...)
   end
+
+
+  private
+
+    def parse_frontmatter
+      page_data = @page.read
+
+      return {} unless page_data.start_with?('---')
+      /(?<=---\n)(?<yaml>.*)(?=---\n)/m =~ @page.read
+
+      YAML.load(yaml)
+    end
 
 end
