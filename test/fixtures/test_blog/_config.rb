@@ -1,3 +1,3 @@
 require 'flora_blog'
 
-plugin(FloraBlog)
+plugin(Flora::Plugins::Blog)

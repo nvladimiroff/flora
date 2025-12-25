@@ -1,18 +1,19 @@
-class FloraBlog::Post
+class Flora::Plugins::Blog::Post
 
-  def initialize(page)
+  def initialize(page, root)
     @page = page
+    @root = root
     @frontmatter = parse_frontmatter
   end
 
 
   def url
-    'https://google.com'
+    '/' + @page.relative_path_from(@root).sub(@page.extname, '').to_s
   end
 
 
   def title
-    'google'
+    @frontmatter['title']
   end
 
 
