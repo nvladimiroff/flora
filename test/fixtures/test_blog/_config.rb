@@ -1,3 +1,3 @@
-require 'flora_blog'
+require 'flora/plugins/blog'
 
 plugin(Flora::Plugins::Blog)

@@ -39,6 +39,12 @@ class Flora::Engine
         out_filename.write(html)
       end
     end
+
+    Dir[@path.join('public/**')].each do |public_file|
+      out_filename = @out_dir.join(Pathname.new(public_file).relative_path_from(@path))
+      out_filename.dirname.mkdir unless out_filename.dirname.exist?
+      out_filename.write(File.read(public_file))
+    end
   end
 
 

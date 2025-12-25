@@ -67,4 +67,11 @@ class TestFlora < Minitest::Test
     assert_equal('/posts/post1', css('body li a')['href'])
   end
 
+
+  def test_public
+    build('site_with_public_data')
+
+    assert_match(/font-family: /, @flora.out_dir.join('public/app.css').read)
+  end
+
 end
