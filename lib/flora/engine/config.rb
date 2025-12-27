@@ -1,15 +1,12 @@
 class Flora::Engine::Config
 
-  attr_reader(:plugins)
-
-
-  def initialize
-    @plugins = []
+  def initialize(plugin_loader)
+    @plugin_loader = plugin_loader
   end
 
 
   def plugin(mod)
-    @plugins << mod
+    @plugin_loader.load_plugin(mod)
   end
 
 end

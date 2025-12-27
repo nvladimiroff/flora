@@ -1,11 +1,9 @@
 module Flora::Plugins::Blog
 
-  module RubyPage
+  module PageMethods
 
-    def render
-      @posts = @root.glob('posts/**').map { Post.new(it, @root) }
-
-      super
+    def posts
+      @root.glob('posts/**').map { Post.new(it, @root) }
     end
 
   end

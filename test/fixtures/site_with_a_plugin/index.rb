@@ -1,6 +1,6 @@
 html do
   head
   body do
-    @plugin_data
+    plugin_data
   end
 end

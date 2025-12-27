@@ -12,14 +12,14 @@ class Minitest::Test
 
 
   def build(name)
-    @flora = Flora::Engine.new("test/fixtures/#{name}", 'tmp/test')
-    @flora.build
+    @flora = Flora.new("test/fixtures/#{name}")
+    @flora.build('tmp/test')
   end
 
 
   def css(selector, file: nil)
     file ||= 'index.html'
-    doc = Nokogiri::HTML5(@flora.out_dir.join(file).read)
+    doc = Nokogiri::HTML5(out_dir.join(file).read)
     doc.css(selector)[0]
   end
 
@@ -27,5 +27,12 @@ class Minitest::Test
   def assert_css(selector, expected, file: nil)
     assert_equal(expected, css(selector, file:).text)
   end
+
+
+  private
+
+    def out_dir
+      @flora.instance_variable_get(:@engine).instance_variable_get(:@out_dir)
+    end
 
 end

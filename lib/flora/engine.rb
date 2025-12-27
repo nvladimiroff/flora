@@ -1,26 +1,27 @@
 class Flora::Engine
 
-  attr_reader(:out_dir)
-
-
-  def initialize(path, out_dir)
+  def initialize(path)
     @path = Pathname.new(path)
-    @out_dir = Pathname.new(out_dir)
-    @out_dir.mkdir unless @out_dir.exist?
-    @config = Config.new
+    @config = Config.new(self)
 
     Kernel.prepend(Flora::Engine::Page::Html)
   end
 
 
-  def build
+  def configure
     with_load_path(@path) do
       config_file = @path.join('_config.rb')
       @config.instance_eval(config_file.read)  if config_file.exist?
+    end
+  end
 
-      init_plugins
 
-      Page.each(@path) do |page|
+  def build(out_dir)
+    @out_dir = Pathname.new(out_dir)
+    @out_dir.mkdir unless @out_dir.exist?
+
+    with_load_path(@path) do
+       Page.each(@path) do |page|
         layouts = []
         page.dir.ascend do |dir|
           maybe_layout = dir.join('_layout.rb')
@@ -40,11 +41,13 @@ class Flora::Engine
       end
     end
 
-    Dir[@path.join('public/**')].each do |public_file|
-      out_filename = @out_dir.join(Pathname.new(public_file).relative_path_from(@path))
-      out_filename.dirname.mkdir unless out_filename.dirname.exist?
-      out_filename.write(File.read(public_file))
-    end
+  end
+
+
+  def load_plugin(mod)
+    self.class.include(mod::EngineMethods) if defined?(mod::EngineMethods)
+    Page::RubyPage.include(mod::PageMethods) if defined?(mod::PageMethods)
+    Config.include(mod::Config) if defined?(mod::Config)
   end
 
 
@@ -54,14 +57,6 @@ class Flora::Engine
       $LOAD_PATH << path.to_s
       yield
       $LOAD_PATH.delete(path.to_s)
-    end
-
-
-    def init_plugins
-      @config.plugins.each do |plugin|
-        Page.include(plugin::Page) if self.class.const_defined?("#{plugin}::Page")
-        Page::RubyPage.include(plugin::RubyPage) if self.class.const_defined?("#{plugin}::RubyPage")
-      end
     end
 
 end

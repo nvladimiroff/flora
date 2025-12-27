@@ -1,7 +1,7 @@
 require 'lib/post'
 
 ul do
-  @posts.each do |post|
+  posts.each do |post|
     li do
       Post.new(post).render
     end

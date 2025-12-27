@@ -1,3 +1,3 @@
-module Flora
-  VERSION = "0.2.0"
+class Flora
+  VERSION = "0.3.0"
 end

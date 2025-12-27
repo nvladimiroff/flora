@@ -71,7 +71,7 @@ class TestFlora < Minitest::Test
   def test_public
     build('site_with_public_data')
 
-    assert_match(/font-family: /, @flora.out_dir.join('public/app.css').read)
+    assert_match(/font-family: /, out_dir.join('public/app.css').read)
   end
 
 end

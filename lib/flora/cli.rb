@@ -4,7 +4,7 @@ class Flora::Cli < Thor
 
   desc 'build OUT_DIR', 'Build a site'
   def build(out_dir)
-    Flora::Engine.new('.', out_dir).build
+    Flora.new('.').build(out_dir)
   end
 
 

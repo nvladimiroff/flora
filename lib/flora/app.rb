@@ -24,9 +24,9 @@ class Flora::App
 
 
   def self.app(path)
-    flora = Flora::Engine.new(path, '/tmp/flora/')
+    flora = Flora.new(path)
     # TODO: rebuild every req?
-    flora.build
+    flora.build('/tmp/flora/')
 
     Rack::Builder.new do
       use StaticWithoutHtml, flora.out_dir
