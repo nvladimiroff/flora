@@ -1,5 +1,3 @@
-require 'lib/post'
-
 ul do
   posts.each do |post|
     li do

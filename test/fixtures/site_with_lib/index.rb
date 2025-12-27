@@ -1,5 +1,3 @@
-require 'lib/title'
-
 html do
   head
   body do
