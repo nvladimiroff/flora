@@ -7,7 +7,7 @@ class Flora::App
 
     def initialize(app, dir)
       @app = app
-      @dir = dir
+      @dir = Pathname.new(dir)
     end
 
     def call(env)
@@ -29,8 +29,8 @@ class Flora::App
     flora.build('/tmp/flora/')
 
     Rack::Builder.new do
-      use StaticWithoutHtml, flora.out_dir
-      use Rack::Static, urls: [''], root: flora.out_dir.to_s, index: 'index.html'
+      use StaticWithoutHtml, '/tmp/flora'
+      use Rack::Static, urls: [''], root: '/tmp/flora', index: 'index.html'
       map "/" do
         run ->(env) do
           [404, {'Content-Type' => 'text/plain'}, ['Page Not Found!']]
