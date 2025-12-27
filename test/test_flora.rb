@@ -74,4 +74,12 @@ class TestFlora < Minitest::Test
     assert_match(/font-family: /, out_dir.join('public/app.css').read)
   end
 
+
+  def test_redirect
+    build('site_with_redirects')
+
+    assert_equal('0; url=/', css('head meta', file: 'test/redirect.html')['content'])
+    assert_equal('0; url=/', css('head meta', file: 'test2/redirect.html')['content'])
+  end
+
 end
