@@ -1,14 +1,20 @@
 class Flora::Engine
 
+  attr_reader(:website_loader)
+
+
   def initialize(path)
     @path = Pathname.new(path)
     @config = Config.new(self)
 
-    @site_loader = Zeitwerk::Loader.new
+    @website_loader = Zeitwerk::Loader.new
 
-    if site_has_supporting_code?
-      setup_site_loader
+    if website_has_supporting_code?
+      @website_loader.push_dir(@path.join('lib').to_s)
     end
+
+    @website_loader.enable_reloading
+    @website_loader.setup
 
     Kernel.prepend(Flora::Engine::Page::Html)
   end
@@ -55,15 +61,12 @@ class Flora::Engine
 
   private
 
-    def site_has_supporting_code?
+    def website_has_supporting_code?
       @path.join('lib').exist?
     end
 
 
-    def setup_site_loader
-      @site_loader.push_dir(@path.join('lib').to_s)
-      @site_loader.enable_reloading
-      @site_loader.setup
+    def setup_website_loader
     end
 
 end

@@ -18,4 +18,9 @@ class Flora
     @engine.build(out)
   end
 
+
+  def reload_website_code
+    @engine.website_loader.reload
+  end
+
 end
