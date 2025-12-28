@@ -1,3 +1,4 @@
+# This is the user-visible configuration class. It lives in ROOT/_config.rb.
 class Flora::Config
 
   def initialize(file, flora)

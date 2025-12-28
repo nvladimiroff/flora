@@ -20,14 +20,24 @@ module Flora::Plugins::StaticFiles
   end
 
 
+  module BlueprintMethods
+
+    def static_files_dir
+      @dir.join(@config.static_files_dir || 'public')
+    end
+
+  end
+
+
   module FactoryMethods
 
     def assemble(out_dir)
       super
 
-      base = @config.static_files_dir || 'public'
-      copier = Copier.new(@blueprint.dir.join(base))
-      copier.copy_to(out_dir.join(base))
+      static_out_dir = out_dir.join(@blueprint.static_files_dir.relative_path_from(@blueprint.dir))
+
+      copier = Copier.new(@blueprint.static_files_dir)
+      copier.copy_to(static_out_dir)
     end
 
   end

@@ -1,3 +1,5 @@
+# A Blueprint is a project made with Flora. Blueprints can be turned into websites
+# with a Factory.
 class Flora::Blueprint
 
   attr_reader(:dir)
@@ -5,7 +7,7 @@ class Flora::Blueprint
   IGNORES = ['.git/*', 'lib/*', '**_layout.rb', '_config.rb']
 
 
-  def initialize(dir, config, page_modules)
+  def initialize(dir, config, page_modules = nil)
     @dir = dir
     @config = config
     @page_modules = page_modules
@@ -21,6 +23,10 @@ class Flora::Blueprint
   end
 
 
+  # TODO: What do Blueprints have? Is it Pages? Is it Files? It it something else?
+  # Good question to ask: what does a Factory need to assemble a Website? What does a Blueprint
+  # tell it about? Pages are all (right now) the base class has, but consider static files too.
+  # schematic?
   def each_page(&block)
     @pages.each(&block)
   end

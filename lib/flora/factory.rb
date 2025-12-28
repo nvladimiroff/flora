@@ -1,3 +1,4 @@
+# Factories assemble blueprints into websites.
 class Flora::Factory
 
   def initialize(blueprint, config)
@@ -6,7 +7,7 @@ class Flora::Factory
   end
 
 
-  # Assemble a blueprint and put it into a directory.
+  # Assemble a blueprint into a website, and put it into out_dir.
   def assemble(out_dir)
     out_dir.mkdir unless out_dir.exist?
 
