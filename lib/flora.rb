@@ -20,13 +20,14 @@ class Flora
     # with other instances of Flora in the same process. This is mostly for the
     # unit tests. Maybe one day we can use Ruby::Box or something here instead.
     @config_class = Class.new(Config)
+    @blueprint_class = Class.new(Blueprint)
     @factory_class = Class.new(Factory)
 
     # Page plugins get mixed in directly to the page instances by Blueprint.
     @page_modules = []
 
     @config = @config_class.new(dir.join('_config.rb'), self)
-    @blueprint = Blueprint.new(dir, @config, @page_modules)
+    @blueprint = @blueprint_class.new(dir, @config, @page_modules)
     @factory = @factory_class.new(@blueprint, @config)
   end
 
@@ -43,8 +44,9 @@ class Flora
 
   # TODO: it would be nice if this wasn't exposed here. It's just for Config#plugin.
   def load_plugin(mod)
-    @factory_class.include(mod::FactoryMethods) if defined?(mod::FactoryMethods)
     @config_class.include(mod::Config) if defined?(mod::Config)
+    @blueprint_class.include(mod::BlueprintMethods) if defined?(mod::BlueprintMethods)
+    @factory_class.include(mod::FactoryMethods) if defined?(mod::FactoryMethods)
 
     @page_modules << mod::PageMethods if defined?(mod::PageMethods)
   end

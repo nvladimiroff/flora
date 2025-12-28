@@ -42,8 +42,7 @@ class Flora::Blueprint
         next if file.directory?
         next unless supported_file_type?(file)
 
-        route = file.relative_path_from(@dir).sub_ext('.html').to_s
-        page = Page.for(file).new(self, file, route)
+        page = Page.for(file).new(file, self)
         @page_modules.each { |mod| page.extend(mod) }
         pages << page
       end
@@ -52,6 +51,7 @@ class Flora::Blueprint
     end
 
 
+    # TODO: this is duplicating logic from Page::for.
     def supported_file_type?(file)
       file.extname == '.rb' || file.extname == '.md'
     end

@@ -11,7 +11,8 @@ class Flora::Factory
     out_dir.mkdir unless out_dir.exist?
 
     @blueprint.each_page do |page|
-      out_filename = out_dir.join(page.route)
+      relative_path = page.file.relative_path_from(@blueprint.dir)
+      out_filename = out_dir.join(relative_path).sub_ext('.html')
       out_filename.dirname.mkdir unless out_filename.dirname.exist?
       out_filename.write(page.render)
     end

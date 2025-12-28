@@ -1,7 +1,7 @@
-# A page is something can be turned into HTML.
+# A page is something can be turned into an HTML file.
 class Flora::Blueprint::Page
 
-  attr_reader(:blueprint, :file, :route)
+  attr_reader(:file)
 
 
   def self.for(file)
@@ -16,10 +16,10 @@ class Flora::Blueprint::Page
   end
 
 
-  def initialize(blueprint, file, route)
-    @blueprint = blueprint
+  def initialize(file, blueprint)
     @file = file
-    @route = route
+    @blueprint = blueprint
+
     @layout = find_layouts
   end
 
