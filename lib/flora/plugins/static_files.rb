@@ -20,14 +20,14 @@ module Flora::Plugins::StaticFiles
   end
 
 
-  module EngineMethods
+  module FactoryMethods
 
-    def build(*)
+    def assemble(out_dir)
       super
 
       base = @config.static_files_dir || 'public'
-      copier = Copier.new(@path.join(base))
-      copier.copy_to(@out_dir.join(base))
+      copier = Copier.new(@blueprint.dir.join(base))
+      copier.copy_to(out_dir.join(base))
     end
 
   end

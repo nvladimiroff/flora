@@ -1,4 +1,4 @@
-module Flora::Engine::Page::Html
+module Flora::Blueprint::Page::Html
 
   TAGS = %i[
     a abbr address area article aside audio

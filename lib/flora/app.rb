@@ -50,7 +50,7 @@ class Flora::App
     end
 
     def call(env)
-      @flora.reload_website_code
+      @flora.reload_blueprint
 
       @app.call(env)
     end

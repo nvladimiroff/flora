@@ -1,4 +1,4 @@
-class Flora::Engine::Page::Layout
+class Flora::Blueprint::Page::Layout
 
   def initialize(layouts)
     @layouts = layouts

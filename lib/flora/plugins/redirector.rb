@@ -1,12 +1,12 @@
 module Flora::Plugins::Redirector
 
-  module EngineMethods
+  module FactoryMethods
 
-    def build(*)
+    def assemble(out_dir)
       super
 
       @config.redirects.each do |src, dest|
-        out_filename = @out_dir.join(src + '.html')
+        out_filename = out_dir.join(src + '.html')
         out_filename.dirname.mkdir unless out_filename.dirname.exist?
         out_filename.write(build_redir_file(dest))
       end

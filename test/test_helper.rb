@@ -6,6 +6,9 @@ require 'debug'
 
 class Minitest::Test
 
+  OUT_DIR = Pathname.new('tmp/test')
+
+
   def teardown
     `rm -rf tmp/test/*`
   end
@@ -13,13 +16,13 @@ class Minitest::Test
 
   def build(name)
     @flora = Flora.new("test/fixtures/#{name}")
-    @flora.build('tmp/test')
+    @flora.build(OUT_DIR.to_s)
   end
 
 
   def css(selector, file: nil)
     file ||= 'index.html'
-    doc = Nokogiri::HTML5(out_dir.join(file).read)
+    doc = Nokogiri::HTML5(OUT_DIR.join(file).read)
     doc.css(selector)[0]
   end
 
@@ -27,12 +30,5 @@ class Minitest::Test
   def assert_css(selector, expected, file: nil)
     assert_equal(expected, css(selector, file:).text)
   end
-
-
-  private
-
-    def out_dir
-      @flora.instance_variable_get(:@engine).instance_variable_get(:@out_dir)
-    end
 
 end

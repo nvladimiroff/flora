@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require "test_helper"
 
 class TestFlora < Minitest::Test
@@ -71,7 +69,7 @@ class TestFlora < Minitest::Test
   def test_public
     build('site_with_public_data')
 
-    assert_match(/font-family: /, out_dir.join('public/app.css').read)
+    assert_match(/font-family: /, OUT_DIR.join('public/app.css').read)
   end
 
 
