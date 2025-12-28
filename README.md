@@ -45,4 +45,4 @@ Flora doesn't have a routes file. Instead, requests are routed by convention bas
 
 ### Unopinionated but pluggable
 
-Flora is a generic static site generator and in the core engine, doesn't favor any particular use case. Making Flora do specific things better is achieved using plugins. Flora ships with a few plugins for common use cases like blogs and handling static files.
+Flora is a generic static site generator and doesn't favor any particular use case. Making Flora do specific things better is achieved using plugins. Flora ships with a few plugins for common use cases like blogs and handling static files.
