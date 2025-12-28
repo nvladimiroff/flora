@@ -25,6 +25,9 @@ class Flora::Blueprint::Page
 
 
   def render
+    # The Html DSL uses a global variable internally that needs to be reset every time.
+    $flora_added = []
+
     tree = @layout.render do
       render_tree
     end
