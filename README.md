@@ -26,6 +26,33 @@ end
 
 Install everything with `bundle install`, and then run `bundle exec flora serve` and open up http://localhost:3000!
 
+## Lilac
+
+Lilac is Flora's DSL for writing HTML. Tags are just methods named the same as the tag, and children of tags are put inside blocks.
+
+Looking for a way to make reusable components? Write a function! For example:
+
+```ruby
+# lib/cool_title.rb
+class CoolTitle
+
+  def self.render(text)
+    div(class: 'title') do
+      h1 do
+        text
+      end
+    end
+  end
+
+end
+
+# index.rb
+html do
+  body do
+    CoolTitle.render('My blog')
+  end
+end
+```
 
 ## The Flora way
 

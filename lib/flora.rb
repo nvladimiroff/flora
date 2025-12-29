@@ -10,11 +10,11 @@ class Flora
   def initialize(dir)
     dir = Pathname.new(dir)
 
-    # Inject HTML helpers into Kernel so they're available everywhere. Just
-    # instance_eval isn't enough because they'll be missing in lib/ code.
+    # Inject Lilac into the Kernel so it's available everywhere. Just
+    # instance_eval isn't enough because it'll be missing in lib/ code.
     #
     # TODO: is there a less disruptive way to do this?
-    Kernel.prepend(Flora::Project::Blueprint::Html)
+    Kernel.prepend(Flora::Lilac)
 
     # The classes that are pluggable get their own instances to avoid conflicting
     # with other instances of Flora in the same process. This is mostly for the

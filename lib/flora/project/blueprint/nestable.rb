@@ -11,7 +11,7 @@ module Flora::Project::Blueprint::Nestable
       render_tree
     end
 
-    Flora::Project::Blueprint::Html.to_html(tree)
+    Flora::Lilac.to_html(tree)
   end
 
 
