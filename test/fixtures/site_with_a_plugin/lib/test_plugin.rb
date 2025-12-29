@@ -1,6 +1,6 @@
 module TestPlugin
 
-  module PageMethods
+  module BlueprintMethods
 
     def plugin_data
       'Hello plugin'

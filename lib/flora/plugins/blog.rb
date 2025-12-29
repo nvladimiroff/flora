@@ -1,6 +1,6 @@
 module Flora::Plugins::Blog
 
-  module BlueprintMethods
+  module ProjectMethods
 
     def posts
       @dir.glob('posts/**').map { Post.new(it, @dir) }
@@ -9,10 +9,10 @@ module Flora::Plugins::Blog
   end
 
 
-  module PageMethods
+  module BlueprintMethods
 
     def posts
-      @blueprint.posts
+      @project.posts
     end
 
   end

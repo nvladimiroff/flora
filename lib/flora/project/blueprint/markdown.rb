@@ -1,4 +1,12 @@
-class Flora::Blueprint::Page::MarkdownPage < Flora::Blueprint::Page
+class Flora::Project::Blueprint::Markdown < Flora::Project::Blueprint
+
+  include Flora::Project::Blueprint::Nestable
+
+
+  def self.recognize(file, config)
+    file.extname == '.md'
+  end
+
 
   private
 
