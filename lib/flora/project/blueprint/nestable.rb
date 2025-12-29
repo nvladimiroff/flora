@@ -7,7 +7,7 @@ module Flora::Project::Blueprint::Nestable
     $flora_added = []
 
     layouts = find_layouts
-    tree = render_internal(layouts, layouts.size - 1) do
+    tree = render_internal(layouts, layouts.size) do
       render_tree
     end
 
@@ -35,7 +35,7 @@ module Flora::Project::Blueprint::Nestable
       end
 
       cont = -> { render_internal(layouts, i-1, &block) }
-      eval_with_block(layouts[i].read, &cont)
+      eval_with_block(layouts[i-1].read, &cont)
     end
 
 

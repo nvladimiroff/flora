@@ -40,14 +40,14 @@ class TestFlora < Minitest::Test
   def test_layout
     build('site_with_a_layout')
 
-    assert_css('body div', 'Hello world from a layout')
+    assert_css('div div', 'Hello world from a layout')
   end
 
 
   def test_nested_layout
     build('site_with_nested_layout')
 
-    assert_css('body div', 'This is a post', file: 'posts/post.html')
+    assert_css('div main div', 'This is a post', file: 'posts/post.html')
   end
 
 

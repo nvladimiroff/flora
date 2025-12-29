@@ -1,6 +1,8 @@
 html do
   head
   body do
-    yield
+    div do
+      yield
+    end
   end
 end
