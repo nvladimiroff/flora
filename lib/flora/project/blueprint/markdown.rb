@@ -10,7 +10,7 @@ class Flora::Project::Blueprint::Markdown < Flora::Project::Blueprint
 
   private
 
-    def render_tree
+    def render_lilac
       silence_warnings do
         raw_html(Kramdown::Document.new(@file.read).to_html)
       end

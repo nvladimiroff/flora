@@ -1,5 +1,5 @@
-# A Blueprint that includes Nestable is something that can best nested into
-# Flora's HTML DSL layouts.
+# A Blueprint that includes Nestable is something that can be nested into a
+# Lilac-based layout.
 module Flora::Project::Blueprint::Nestable
 
   def render
@@ -8,7 +8,7 @@ module Flora::Project::Blueprint::Nestable
 
     layouts = find_layouts
     tree = render_internal(layouts, layouts.size) do
-      render_tree
+      render_lilac
     end
 
     Flora::Lilac.to_html(tree)

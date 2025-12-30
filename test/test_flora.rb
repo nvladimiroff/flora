@@ -61,8 +61,8 @@ class TestFlora < Minitest::Test
   def test_blog
     build('test_blog')
 
-    assert_css('body li', 'First post title!')
-    assert_equal('/posts/post1', css('body li a')['href'])
+    assert_css('body li', 'Second post title!')
+    assert_equal('/posts/post2', css('body li a')['href'])
   end
 
 

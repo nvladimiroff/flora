@@ -10,7 +10,7 @@ class Flora::Project::Blueprint::RubyHtml < Flora::Project::Blueprint
 
   private
 
-    def render_tree
+    def render_lilac
       instance_eval(@file.read)
     end
 

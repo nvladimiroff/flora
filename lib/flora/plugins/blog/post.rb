@@ -17,8 +17,13 @@ class Flora::Plugins::Blog::Post
   end
 
 
+  def date
+    @frontmatter['date']
+  end
+
+
   def method_missing(name, ...)
-    return @frontmatter[name] if @frontmatter[name]
+    return @frontmatter[name.to_s] if @frontmatter[name.to_s]
 
     super(name, ...)
   end
@@ -32,7 +37,7 @@ class Flora::Plugins::Blog::Post
       return {} unless page_data.start_with?('---')
       /(?<=---\n)(?<yaml>.*)(?=---\n)/m =~ @page.read
 
-      YAML.load(yaml)
+      YAML.load(yaml, permitted_classes: [Date])
     end
 
 end
