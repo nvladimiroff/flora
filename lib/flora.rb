@@ -1,6 +1,7 @@
 require 'zeitwerk'
 require 'nokogiri'
 require 'kramdown'
+require 'fileutils'
 
 loader = Zeitwerk::Loader.for_gem(warn_on_extra_files: false)
 loader.setup
