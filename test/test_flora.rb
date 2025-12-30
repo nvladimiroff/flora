@@ -87,4 +87,11 @@ class TestFlora < Minitest::Test
     assert_css('body', 'Nested', file: 'x/y/index.html')
   end
 
+
+  def test_view_extensions
+    build('site_with_a_view_extension')
+
+    assert_css('body h1', 'Hello world')
+  end
+
 end

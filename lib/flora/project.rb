@@ -10,19 +10,12 @@ class Flora::Project
   IGNORES = ['.git/*', 'lib/**', '**_*.rb']
 
 
-  def initialize(dir, config)
+  def initialize(dir, loader, config)
     @dir = dir
+    @loader = loader
     @config = config
 
     @blueprints = find_blueprints
-
-    @loader = Zeitwerk::Loader.new
-    if has_supporting_code?
-      @loader.push_dir(@dir.join('lib').to_s)
-    end
-    @loader.enable_reloading
-    @loader.setup
-    @loader.eager_load
   end
 
 
@@ -55,7 +48,6 @@ class Flora::Project
 
 
     def has_supporting_code?
-      @dir.join('lib').exist?
     end
 
 end

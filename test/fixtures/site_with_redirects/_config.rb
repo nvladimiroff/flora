@@ -1,4 +1,4 @@
-plugin(Flora::Plugins::Redirector)
+use(Flora::Plugins::Redirector)
 
 self.redirects = {
   'test/redirect' => '/',

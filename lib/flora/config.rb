@@ -8,8 +8,13 @@ class Flora::Config
   end
 
 
-  def plugin(mod)
+  def use(mod)
     @flora.load_plugin(mod)
+  end
+
+
+  def extend_view(mod)
+    Kernel.prepend(mod)
   end
 
 

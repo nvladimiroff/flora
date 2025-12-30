@@ -33,10 +33,10 @@ Lilac is Flora's DSL for writing HTML. Tags are just methods named the same as t
 Looking for a way to make reusable components? Write a function! For example:
 
 ```ruby
-# lib/cool_title.rb
-class CoolTitle
+# lib/my_helpers.rb
+module MyHelpers
 
-  def self.render(text)
+  def cool_title(text)
     div(class: 'title') do
       h1 do
         text
@@ -46,10 +46,13 @@ class CoolTitle
 
 end
 
+# _config.rb
+extend_view(MyHelpers)
+
 # index.rb
 html do
   body do
-    CoolTitle.render('My blog')
+    cool_title('My blog')
   end
 end
 ```

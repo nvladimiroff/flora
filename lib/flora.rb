@@ -24,8 +24,16 @@ class Flora
     @project_class = Class.new(Project)
     @factory_class = Class.new(Factory)
 
+    # This has to be loaded before Config so Config can reference lib/ code.
+    @project_loader = Zeitwerk::Loader.new
+    if dir.join('lib').exist?
+      @project_loader.push_dir(dir.join('lib'))
+    end
+    @project_loader.enable_reloading
+    @project_loader.setup
+
     @config = @config_class.new(dir.join('_config.rb'), self)
-    @project = @project_class.new(dir, @config)
+    @project = @project_class.new(dir, @project_loader, @config)
     @factory = @factory_class.new(@project, @config)
   end
 

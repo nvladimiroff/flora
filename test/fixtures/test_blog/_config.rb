@@ -1,1 +1,1 @@
-plugin(Flora::Plugins::Blog)
+use(Flora::Plugins::Blog)

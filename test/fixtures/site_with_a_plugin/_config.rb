@@ -1,1 +1,1 @@
-plugin(TestPlugin)
+use(TestPlugin)
