@@ -28,7 +28,7 @@ class Flora::Project::Blueprint::Markdown < Flora::Project::Blueprint
 
     # TODO: Maybe just make frontmatter fully supported by Markdown?
     def skipping_frontmatter(str)
-      str.gsub(/---\n(.*)---\n/m, '')
+      str.gsub(/^---\n(.*)---\n/m, '')
     end
 
 end
