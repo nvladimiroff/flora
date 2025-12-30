@@ -13,6 +13,6 @@ steps:
     - name: build
       image: ruby:${RUBY_VERSION}-alpine
       commands:
-        - apk add alpine-sdk
+        - apk add alpine-sdk yaml-dev
         - bundle install
         - rake
