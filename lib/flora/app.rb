@@ -12,14 +12,15 @@ class Flora::App
       @app = app
       @dir = Pathname.new(dir)
       @flora = flora
-      @last_built = Time.at(0)
+      @@last_built ||= Time.at(0)
     end
 
 
     def call(env)
       if should_rebuild?
+        @flora.reload_project
         @flora.build(OUT_DIR)
-        @last_built = Time.now.utc
+        @@last_built = Time.now.utc
         # TODO: also trigger a reload in the browser
       end
 
@@ -33,27 +34,11 @@ class Flora::App
         # TODO: this is probably slow. I'm sure there's an easier kqueue-esq way
         # of doing this.
         @dir.find do |file|
-          return true if file.stat.mtime > @last_built
+          return true if file.stat.mtime > @@last_built
         end
 
         false
       end
-
-  end
-
-
-  class Reloader
-
-    def initialize(app, flora)
-      @app = app
-      @flora = flora
-    end
-
-    def call(env)
-      @flora.reload_project
-
-      @app.call(env)
-    end
 
   end
 
@@ -84,7 +69,6 @@ class Flora::App
 
     Rack::Builder.new do
       use Rebuilder, path, flora
-      use Reloader, flora
       use StaticWithoutHtml, OUT_DIR
       use Rack::Static, urls: [''], root: OUT_DIR, index: 'index.html'
 

@@ -14,14 +14,18 @@ class Flora::Project
     @dir = dir
     @loader = loader
     @config = config
+    @mutex = Mutex.new
 
     @blueprints = find_blueprints
   end
 
 
   def reload
-    @loader.reload
-    @blueprints = find_blueprints
+    # `flora serve` can sometimes hit this multiple times and cause errors.
+    @mutex.synchronize do
+      @loader.reload
+      @blueprints = find_blueprints
+    end
   end
 
 
@@ -44,10 +48,6 @@ class Flora::Project
       end
 
       blueprints
-    end
-
-
-    def has_supporting_code?
     end
 
 end
