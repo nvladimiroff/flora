@@ -39,12 +39,13 @@ module Flora::Project::Blueprint::HasLayout
       end
 
       cont = -> { render_internal(layouts, i-1, &block) }
-      eval_with_block(layouts[i-1].read, &cont)
+      filename = layouts[i-1].to_s
+      eval_with_block(layouts[i-1].read, filename, &cont)
     end
 
 
-    def eval_with_block(str, &block)
-      eval(str)
+    def eval_with_block(str, filename, &block)
+      eval(str, binding, filename)
     end
 
 end

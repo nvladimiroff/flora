@@ -11,7 +11,7 @@ class Flora::Project::Blueprint::RubyHtml < Flora::Project::Blueprint
   private
 
     def render_lilac
-      instance_eval(@file.read)
+      instance_eval(@file.read, @file.to_s)
     end
 
 end
