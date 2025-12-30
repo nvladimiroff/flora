@@ -21,7 +21,7 @@ class Flora
     # instance_eval isn't enough because it'll be missing in lib/ code.
     #
     # TODO: is there a less disruptive way to do this?
-    Kernel.prepend(Flora::Lilac)
+    Kernel.include(Flora::Lilac)
 
     # The classes that are pluggable get their own instances to avoid conflicting
     # with other instances of Flora in the same process. This is mostly for the

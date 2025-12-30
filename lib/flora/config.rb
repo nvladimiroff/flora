@@ -14,7 +14,7 @@ class Flora::Config
 
 
   def extend_view(mod)
-    Kernel.prepend(mod)
+    Kernel.include(mod)
   end
 
 
