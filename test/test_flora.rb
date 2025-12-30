@@ -54,7 +54,7 @@ class TestFlora < Minitest::Test
   def test_plugins
     build('site_with_a_plugin')
 
-    assert_css('body', 'Hello plugin')
+    assert_equal('Hello plugin', File.read('tmp/test/plugin.html'))
   end
 
 

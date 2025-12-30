@@ -19,7 +19,7 @@ module Flora::Plugins::StaticFiles
   end
 
 
-  module Config
+  module ConfigMethods
 
     def self.included(base)
       base.class_eval do

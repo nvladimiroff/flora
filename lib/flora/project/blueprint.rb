@@ -1,5 +1,5 @@
-# A Blueprint is something can be rendered into a File. Sometimes a Blueprint
-# looks very different than the File it renders into, but other times (like for
+# A Blueprint is something can be rendered into a page. Sometimes a Blueprint
+# looks very different than the page it renders into, but other times (like for
 # static files), nothing changes.
 class Flora::Project::Blueprint
 
@@ -28,15 +28,15 @@ class Flora::Project::Blueprint
   end
 
 
-  # The name of the Page this Blueprint makes. By default this is just the
+  # The name of the page this Blueprint makes. By default this is just the
   # filename, but .html, but subclasses can override this.
   def page_name
     @file.relative_path_from(@project.dir).sub_ext('.html').to_s
   end
 
 
-  # Render a Blueprint into a Page for a Website. This is the String contents
-  # of whatever the Page in the final Website looks like.
+  # Render a Blueprint into a page for a Website. This is the String contents
+  # of whatever the page in the final Website looks like.
   def render
     # Override in subclasses!
   end

@@ -1,27 +1,31 @@
 # This is the user-visible configuration class. It lives in ROOT/_config.rb.
 class Flora::Config
 
-  def initialize(file, flora)
+  def initialize(file, plugin_manager)
     @file = file
-    @flora = flora
-    load if @file.exist?
+    @plugin_manager = plugin_manager
   end
 
 
   def use(mod)
-    @flora.load_plugin(mod)
+    @plugin_manager.load(mod)
+
+    # TODO: ideally, this would live in PluginManager, but it needs to pass
+    # Config.
+    mod.loaded(self) if mod.respond_to?(:loaded)
   end
 
 
   def extend_view(mod)
-    Kernel.include(mod)
+    @plugin_manager.global_load(mod)
   end
 
 
-  private
+  # :nodoc:
+  def load
+    return unless @file.exist?
 
-    def load
-      instance_eval(@file.read)
-    end
+    instance_eval(@file.read)
+  end
 
 end

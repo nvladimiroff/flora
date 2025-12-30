@@ -16,19 +16,20 @@ class Flora
     dir = Pathname.new(dir)
 
     @logger = Logger.new(STDOUT, level: ENV['FLORA_LOG'] || 'info')
+    @plugin_manager = PluginManager.new
 
     # Inject Lilac into the Kernel so it's available everywhere. Just
     # instance_eval isn't enough because it'll be missing in lib/ code.
     #
     # TODO: is there a less disruptive way to do this?
-    Kernel.include(Flora::Lilac)
+    @plugin_manager.global_load(Flora::Lilac)
 
     # The classes that are pluggable get their own instances to avoid conflicting
     # with other instances of Flora in the same process. This is mostly for the
     # unit tests. Maybe one day we can use Ruby::Box or something here instead.
-    @config_class = Class.new(Config)
-    @project_class = Class.new(Project)
-    @factory_class = Class.new(Factory)
+    @config_class = @plugin_manager.create_pluggable_class(Config)
+    @project_class = @plugin_manager.create_pluggable_class(Project)
+    @factory_class = @plugin_manager.create_pluggable_class(Factory)
 
     # This has to be loaded before Config so Config can reference lib/ code.
     @project_loader = Zeitwerk::Loader.new
@@ -38,7 +39,9 @@ class Flora
     @project_loader.enable_reloading
     @project_loader.setup
 
-    @config = @config_class.new(dir.join('_config.rb'), self)
+    @config = @config_class.new(dir.join('_config.rb'), @plugin_manager)
+    @config.load
+
     @project = @project_class.new(dir, @project_loader, @config)
     @factory = @factory_class.new(@project, @config, @logger)
   end
@@ -57,17 +60,6 @@ class Flora
       @project.reload
     end
     @logger.info("[Flora] Reloaded project (#{duration}s)")
-  end
-
-
-  # TODO: it would be nice if this wasn't exposed here. It's just for Config#plugin.
-  def load_plugin(mod)
-    @config_class.include(mod::Config) if defined?(mod::Config)
-    @project_class.include(mod::ProjectMethods) if defined?(mod::ProjectMethods)
-    @factory_class.include(mod::FactoryMethods) if defined?(mod::FactoryMethods)
-
-    # TODO: make this a little more resilient (like the other classes).
-    Flora::Project::Blueprint.include(mod::BlueprintMethods) if defined?(mod::BlueprintMethods)
   end
 
 

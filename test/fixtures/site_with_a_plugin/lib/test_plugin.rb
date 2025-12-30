@@ -1,9 +1,11 @@
 module TestPlugin
 
-  module BlueprintMethods
+  module FactoryMethods
 
-    def plugin_data
-      'Hello plugin'
+    def assemble(out_dir)
+      super
+
+      out_dir.join('plugin.html').write('Hello plugin')
     end
 
   end

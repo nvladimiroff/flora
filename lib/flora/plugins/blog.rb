@@ -68,7 +68,6 @@ module Flora::Plugins::Blog
       end
 
 
-
       # Nokogiri's builder uses method_missing, and some of Lilac's tags are
       # named the same as some of the Atom tags we want to use which causes
       # conflicts. Use this method to get around that!
@@ -88,15 +87,6 @@ module Flora::Plugins::Blog
   end
 
 
-  module BlueprintMethods
-
-    def posts
-      @project.posts
-    end
-
-  end
-
-
   module FactoryMethods
 
     def assemble(out_dir)
@@ -109,7 +99,7 @@ module Flora::Plugins::Blog
   end
 
 
-  module Config
+  module ConfigMethods
 
     def self.included(base)
       base.class_eval do
@@ -117,6 +107,20 @@ module Flora::Plugins::Blog
       end
     end
 
+  end
+
+
+  module ViewExtensions
+
+    def posts
+      @project.posts
+    end
+
+  end
+
+
+  def self.loaded(config)
+    config.extend_view(ViewExtensions)
   end
 
 end

@@ -1,6 +1,6 @@
 html do
   head
   body do
-    plugin_data
+    'Hello world'
   end
 end
