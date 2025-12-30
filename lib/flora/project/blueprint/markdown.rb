@@ -12,7 +12,7 @@ class Flora::Project::Blueprint::Markdown < Flora::Project::Blueprint
 
     def render_lilac
       silence_warnings do
-        raw_html(Kramdown::Document.new(@file.read).to_html)
+        raw_html(Kramdown::Document.new(skipping_frontmatter(@file.read), input: 'GFM').to_html)
       end
     end
 
@@ -23,6 +23,12 @@ class Flora::Project::Blueprint::Markdown < Flora::Project::Blueprint
       yield
     ensure
       $VERBOSE = old_verbose
+    end
+
+
+    # TODO: Maybe just make frontmatter fully supported by Markdown?
+    def skipping_frontmatter(str)
+      str.gsub(/---\n(.*)---\n/m, '')
     end
 
 end
