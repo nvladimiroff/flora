@@ -6,8 +6,6 @@ matrix:
   RUBY_VERSION:
     - 4.0
     - 3.4
-    - 3.3
-    - 3.2
 
 steps:
     - name: build
