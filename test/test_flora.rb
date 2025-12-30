@@ -63,6 +63,9 @@ class TestFlora < Minitest::Test
 
     assert_css('body li', 'Second post title!')
     assert_equal('/posts/post2', css('body li a')['href'])
+
+    assert_css('feed title', 'Test blog', file: 'feed.xml')
+    assert_css('feed entry title', 'Second post title!', file: 'feed.xml')
   end
 
 

@@ -18,7 +18,7 @@ class Flora::Plugins::Blog::Post
 
 
   def date
-    @frontmatter['date']
+    @frontmatter['date'].to_time
   end
 
 
