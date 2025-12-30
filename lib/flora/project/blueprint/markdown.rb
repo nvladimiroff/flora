@@ -1,6 +1,6 @@
 class Flora::Project::Blueprint::Markdown < Flora::Project::Blueprint
 
-  include Flora::Project::Blueprint::Nestable
+  include Flora::Project::Blueprint::HasLayout
 
 
   def self.recognize(file, config)

@@ -1,6 +1,6 @@
-# A Blueprint that includes Nestable is something that can be nested into a
+# A Blueprint that includes HasLayout is something that can be nested into a
 # Lilac-based layout.
-module Flora::Project::Blueprint::Nestable
+module Flora::Project::Blueprint::HasLayout
 
   def render
     # The Html DSL uses a global variable internally that needs to be reset every time.
