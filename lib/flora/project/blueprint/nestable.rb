@@ -19,16 +19,15 @@ module Flora::Project::Blueprint::Nestable
 
     def find_layouts
       layouts = []
+      current = @file.parent
 
-      @file.ascend do |dir|
-        maybe_layout = dir.join('_layout.rb')
+      loop do
+        maybe_layout = current.join('./_layout.rb')
         layouts << maybe_layout if maybe_layout.exist?
-      end
 
-      # Ascend doesn't go to the top level directory.
-      # TODO: Make this code less brittle.
-      maybe_layout = Pathname.new('./_layout.rb')
-      layouts << maybe_layout if maybe_layout.exist?
+        break if current == @project.dir
+        current = current.parent
+      end
 
       layouts
     end
