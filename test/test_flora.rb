@@ -80,4 +80,11 @@ class TestFlora < Minitest::Test
     assert_equal('0; url=/', css('head meta', file: 'test2/redirect.html')['content'])
   end
 
+
+  def test_nested_route
+    build('site_with_a_nested_route')
+
+    assert_css('body', 'Nested', file: 'x/y/index.html')
+  end
+
 end
