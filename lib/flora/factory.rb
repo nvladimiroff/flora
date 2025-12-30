@@ -1,9 +1,10 @@
 # Factories assemble Projects into Websites.
 class Flora::Factory
 
-  def initialize(project, config)
+  def initialize(project, config, logger)
     @project = project
     @config = config
+    @logger = logger
   end
 
 
@@ -15,6 +16,8 @@ class Flora::Factory
       out_filename = out_dir.join(blueprint.page_name)
       FileUtils.mkdir_p(out_filename.dirname) unless out_filename.dirname.exist?
       out_filename.write(blueprint.render)
+
+      @logger.debug("[Flora] #{blueprint.file} => #{out_filename}")
     end
   end
 

@@ -16,6 +16,7 @@ class Minitest::Test
 
   def build(name)
     @flora = Flora.new("test/fixtures/#{name}")
+    @flora.logger = Logger.new('/dev/null')
     @flora.build(OUT_DIR.to_s)
   end
 

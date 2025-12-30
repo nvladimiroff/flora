@@ -2,14 +2,20 @@ require 'zeitwerk'
 require 'nokogiri'
 require 'kramdown'
 require 'fileutils'
+require 'logger'
 
 loader = Zeitwerk::Loader.for_gem(warn_on_extra_files: false)
 loader.setup
 
 class Flora
 
+  attr_writer(:logger)
+
+
   def initialize(dir)
     dir = Pathname.new(dir)
+
+    @logger = Logger.new(STDOUT, level: ENV['FLORA_LOG'] || 'info')
 
     # Inject Lilac into the Kernel so it's available everywhere. Just
     # instance_eval isn't enough because it'll be missing in lib/ code.
@@ -34,17 +40,23 @@ class Flora
 
     @config = @config_class.new(dir.join('_config.rb'), self)
     @project = @project_class.new(dir, @project_loader, @config)
-    @factory = @factory_class.new(@project, @config)
+    @factory = @factory_class.new(@project, @config, @logger)
   end
 
 
   def build(out)
-    @factory.assemble(Pathname.new(out))
+    duration = bench do
+      @factory.assemble(Pathname.new(out))
+    end
+    @logger.info("[Flora] Built project (#{duration}s)")
   end
 
 
   def reload_project
-    @project.reload
+    duration = bench do
+      @project.reload
+    end
+    @logger.info("[Flora] Reloaded project (#{duration}s)")
   end
 
 
@@ -57,6 +69,15 @@ class Flora
     # TODO: make this a little more resilient (like the other classes).
     Flora::Project::Blueprint.include(mod::BlueprintMethods) if defined?(mod::BlueprintMethods)
   end
+
+
+  private
+
+    def bench
+      now = Time.now.utc
+      yield
+      Time.now.utc - now
+    end
 
 end
 
