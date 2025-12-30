@@ -17,7 +17,7 @@ class Flora
     dir = Pathname.new(dir)
 
     @logger = Logger.new(STDOUT, level: ENV['FLORA_LOG'] || 'info')
-    @plugin_manager = PluginManager.new
+    @plugin_manager = PluginManager.new(@logger)
 
     # Inject Lilac into the Kernel so it's available everywhere. Just
     # instance_eval isn't enough because it'll be missing in lib/ code.

@@ -14,10 +14,10 @@ class Flora::Factory
 
     @project.blueprints.each do |blueprint|
       out_filename = out_dir.join(blueprint.page_name)
+      @logger.debug("[Flora] #{blueprint.file} => #{out_filename}")
+
       FileUtils.mkdir_p(out_filename.dirname) unless out_filename.dirname.exist?
       out_filename.write(blueprint.render)
-
-      @logger.debug("[Flora] #{blueprint.file} => #{out_filename}")
     end
   end
 

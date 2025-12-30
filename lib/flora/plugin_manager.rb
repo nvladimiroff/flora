@@ -1,6 +1,7 @@
 class Flora::PluginManager
 
-  def initialize
+  def initialize(logger)
+    @logger = logger
     @pluggables = {}
   end
 
@@ -15,6 +16,8 @@ class Flora::PluginManager
       name = "#{base_class.name.split('::').last}Methods"
       anon_class.include(mod.const_get(name)) if mod.const_defined?(name)
     end
+
+    @logger.debug("[Flora] Plugin #{mod} loaded")
   end
 
 
