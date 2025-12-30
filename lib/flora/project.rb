@@ -9,6 +9,10 @@ class Flora::Project
 
   IGNORES = ['.git/*', 'lib/**', '**_*.rb']
 
+  def self.blueprint_classes
+    @blueprint_classes ||= [Blueprint::Markdown, Blueprint::RubyHtml]
+  end
+
 
   def initialize(dir, loader, config)
     @dir = dir
@@ -38,7 +42,7 @@ class Flora::Project
         next if IGNORES.any? { file.fnmatch((@dir / it).to_s) }
         next if file.directory?
 
-        klass = Blueprint.types.find {
+        klass = self.class.blueprint_classes.find {
           it.recognize(file.relative_path_from(@dir), @config)
         }
 

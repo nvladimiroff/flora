@@ -19,6 +19,17 @@ module Flora::Plugins::StaticFiles
   end
 
 
+  module ProjectMethods
+
+    def self.included(base)
+      base.class_eval do
+        blueprint_classes.prepend(Flora::Plugins::StaticFiles::StaticFile)
+      end
+    end
+
+  end
+
+
   module ConfigMethods
 
     def self.included(base)

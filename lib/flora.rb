@@ -5,6 +5,7 @@ require 'fileutils'
 require 'logger'
 
 loader = Zeitwerk::Loader.for_gem(warn_on_extra_files: false)
+loader.do_not_eager_load("#{__dir__}/flora/plugins")
 loader.setup
 
 class Flora
@@ -72,8 +73,3 @@ class Flora
     end
 
 end
-
-# Built-in Blueprints need to be explicitly loaded or else they won't show up
-# in Blueprint.types.
-loader.load_file("#{__dir__}/flora/project/blueprint/ruby_html.rb")
-loader.load_file("#{__dir__}/flora/project/blueprint/markdown.rb")

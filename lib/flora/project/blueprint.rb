@@ -6,12 +6,6 @@ class Flora::Project::Blueprint
   attr_reader(:file)
 
 
-  # :nodoc:
-  def self.types
-    ObjectSpace.each_object(Class).select { it < self }
-  end
-
-
   # Returns true if this Blueprint is appropriate for the file.
   #
   # TODO: should this be an instance method somewhere instead?

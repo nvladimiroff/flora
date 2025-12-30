@@ -80,6 +80,13 @@ module Flora::Plugins::Blog
 
   module ProjectMethods
 
+    def self.included(base)
+      base.class_eval do
+        blueprint_classes.prepend(Flora::Plugins::Blog::BlogPost)
+      end
+    end
+
+
     def posts
       @dir.glob('posts/**.md').map { Post.new(it, @dir) }.sort_by(&:date).reverse
     end
