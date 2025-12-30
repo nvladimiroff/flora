@@ -25,6 +25,11 @@ module Flora::Project::Blueprint::Nestable
         layouts << maybe_layout if maybe_layout.exist?
       end
 
+      # Ascend doesn't go to the top level directory.
+      # TODO: Make this code less brittle.
+      maybe_layout = Pathname.new('./_layout.rb')
+      layouts << maybe_layout if maybe_layout.exist?
+
       layouts
     end
 
