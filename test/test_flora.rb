@@ -97,4 +97,11 @@ class TestFlora < Minitest::Test
     assert_css('body h1', 'Hello world')
   end
 
+
+  def test_multiple_text_elements
+    build('site_with_weird_content')
+
+    assert_css('body div', '←AnIndieWeb Webring🕸💍→')
+  end
+
 end

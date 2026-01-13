@@ -87,4 +87,13 @@ module Flora::Lilac
     node
   end
 
+
+  def text(string = nil, &block)
+    string ||= block.call if block_given?
+
+    node = { tag: 'text', opts: {}, text: string, children: [] }
+    $flora_added << node
+    node
+  end
+
 end

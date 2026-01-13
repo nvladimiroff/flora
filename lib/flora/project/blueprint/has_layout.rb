@@ -44,6 +44,9 @@ module Flora::Project::Blueprint::HasLayout
     end
 
 
+    # This exists because the eval'd code will call yield, and yield will always
+    # grab the current block passed into the current function. We need that to be
+    # a specific proc, not the one passed into render_internal!
     def eval_with_block(str, filename, &block)
       eval(str, binding, filename)
     end
