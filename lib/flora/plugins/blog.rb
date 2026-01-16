@@ -3,7 +3,7 @@ module Flora::Plugins::Blog
   class BlogPost < Flora::Project::Blueprint::Markdown
 
     def self.recognize(file, config)
-      file.fnmatch?('posts/*.md')
+      file.fnmatch?("#{config.blog[:dir] || 'posts'}/*.md")
     end
 
 
@@ -88,7 +88,9 @@ module Flora::Plugins::Blog
 
 
     def posts
-      @dir.glob('posts/**.md').map { Post.new(it, @dir) }.sort_by(&:date).reverse
+      @dir.glob("#{@config.blog[:dir] || 'posts'}/**.md").map do |p|
+        Post.new(p, @dir)
+      end.sort_by(&:date).reverse
     end
 
   end

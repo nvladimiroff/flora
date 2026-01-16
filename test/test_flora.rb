@@ -104,4 +104,12 @@ class TestFlora < Minitest::Test
     assert_css('body div', '←AnIndieWeb Webring🕸💍→')
   end
 
+
+  def test_alternate_blog_name
+    build('blog_with_alternate_posts_dir')
+
+    assert_css('body li', 'Post 1 title')
+    assert_equal('/blog/post1', css('body li a')['href'])
+  end
+
 end
