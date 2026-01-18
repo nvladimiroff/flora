@@ -112,4 +112,11 @@ class TestFlora < Minitest::Test
     assert_equal('/blog/post1', css('body li a')['href'])
   end
 
+
+  def test_p_tags_work
+    build('site_with_weird_content')
+
+    assert_css('body p', 'Hello world', file: 'p_tag_page.html')
+  end
+
 end

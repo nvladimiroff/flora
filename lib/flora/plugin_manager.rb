@@ -22,7 +22,7 @@ class Flora::PluginManager
 
 
   def global_load(mod)
-    Kernel.include(mod)
+    Kernel.prepend(mod)
   end
 
 end
