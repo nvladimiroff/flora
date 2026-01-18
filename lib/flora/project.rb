@@ -7,7 +7,7 @@ class Flora::Project
 
   attr_reader(:dir, :blueprints)
 
-  IGNORES = ['.git/*', 'lib/**', '**_*.rb']
+  IGNORES = ['.git/*', 'lib/**', '**/_*.rb', '_*.rb']
 
   def self.blueprint_classes
     @blueprint_classes ||= [Blueprint::Markdown, Blueprint::RubyHtml]
@@ -39,7 +39,7 @@ class Flora::Project
       blueprints = []
 
       @dir.find do |file|
-        next if IGNORES.any? { file.fnmatch((@dir / it).to_s) }
+        next if IGNORES.any? { file.fnmatch((@dir + it).to_s) }
         next if file.directory?
 
         klass = self.class.blueprint_classes.find {
