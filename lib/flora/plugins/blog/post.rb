@@ -26,7 +26,7 @@ class Flora::Plugins::Blog::Post
 
 
   def respond_to_missing?(name)
-    @frontmatter.include?(name) || super
+    @frontmatter.include?(name.to_s) || super
   end
 
 
