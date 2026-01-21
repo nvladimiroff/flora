@@ -1,5 +1,8 @@
 class Flora::Plugins::Blog::Post
 
+  attr_reader(:frontmatter)
+
+
   def initialize(page, root)
     @page = page
     @root = root
@@ -19,6 +22,11 @@ class Flora::Plugins::Blog::Post
 
   def date
     @frontmatter['date'].to_time
+  end
+
+
+  def respond_to_missing?(name)
+    @frontmatter.include?(name) || super
   end
 
 
