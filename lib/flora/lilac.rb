@@ -78,6 +78,7 @@ module Flora::Lilac
       $flora_added << node
       node
     end
+    private(tag)
   end
 
 
