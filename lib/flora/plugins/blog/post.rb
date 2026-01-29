@@ -45,7 +45,7 @@ class Flora::Plugins::Blog::Post
       return {} unless page_data.start_with?('---')
       /^(?<=---\n)(?<yaml>.*)(?=---\n)/m =~ @page.read
 
-      YAML.load(yaml, permitted_classes: [Date])
+      YAML.load(yaml, permitted_classes: [Date, Time])
     end
 
 end
