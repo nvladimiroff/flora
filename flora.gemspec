@@ -4,7 +4,7 @@ Gem::Specification.new do |spec|
   spec.name = 'flora'
   spec.version = Flora::VERSION
   spec.authors = ['Nick Vladimiroff']
-  spec.email = ['nickvladimiroff@hey.com']
+  spec.email = ['nick@codeandcake.dev']
 
   spec.summary = 'A static site generator.'
   spec.homepage = 'https://code.kat5.dev/nick/flora'
