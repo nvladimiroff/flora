@@ -63,7 +63,7 @@ Flora is an opinionated static site generator, and you should generally follow t
 
 ### Static only
 
-Flora will only ever generate static websites. If you need dynamic content, look elsewhere! (I'd suggest Rails!)
+Flora will only ever generate static websites. If you need dynamic content, look elsewhere!
 
 ### A Ruby-first approach
 
